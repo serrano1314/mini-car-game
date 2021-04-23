@@ -6,7 +6,7 @@ const game_area=document.querySelector('.game-area');
 document.addEventListener("keydown",pressOn);
 document.addEventListener("keyup",pressOff);
 welcome_screen.addEventListener("click",gameStarto);
-
+let line_num = 5;
 let player = { 
     car:1,
     start:false,
@@ -20,30 +20,42 @@ let keys = {
     Enter:false
 };
 
+function moveRoadLines(){
+    let lines = document.querySelectorAll('.lines');
+    lines.forEach((line)=>{
+        // console.log(line.y);
+        if(line.y>500){
+            line.y -= 600;
+        }
+        line.y += player.speed;
+        line.style.top = line.y+"px";
+    })
+
+}
+
 function playGame(){
+    // console.log('playing');
     let car = document.querySelector('.car');
-    let lines = document.querySelector('.lines');
     let road = game_area.getBoundingClientRect();
     let car_attrib = car.getBoundingClientRect();
-    
-    // lines.style.left = road.width/2-10+"px";
+    let lines = document.querySelectorAll('.lines');
     if(player.start){
-        window.requestAnimationFrame(playGame);
+        moveRoadLines();
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
             player.x += player.speed;
         }
         if(keys.ArrowLeft&&player.x>0) {
             player.x -= player.speed;
         }
-        if(keys.ArrowUp&&player.y>road.top) {
+        if(keys.ArrowUp&&player.y>road.top-300) {
             player.y -= player.speed;
         }
-        if(keys.ArrowDown&&player.y<road.bottom+car_attrib.height) {
+        if(keys.ArrowDown&&player.y<road.bottom) {
             player.y += player.speed;
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
-        
+        window.requestAnimationFrame(playGame);
     }
 }
 
@@ -51,9 +63,10 @@ function gameStarto(){
     player.start = true;
     game_screen.classList.remove('hide');
     welcome_screen.classList.add('hide');
-    for(let i=0;i<5;i++){
+    for(let i=0;i<line_num;i++){
         let lines = document.createElement('div')
         lines.classList.add('lines');
+        lines.y = i*150;
         lines.style.top = i*150+"px";
         game_area.appendChild(lines);
     }
