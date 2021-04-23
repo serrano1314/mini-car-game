@@ -3,13 +3,16 @@
 .hide{
     display: none;
 }
-.car{
+.car, .enemy-car{
     position:absolute;
     bottom: 100px;
     margin:auto;
     background-color: red;
     width: 30px;
     height: 60px;
+}
+.enemy-car{
+    background-color: blue;
 }
 .lines{
     position: absolute;

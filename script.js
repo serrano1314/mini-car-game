@@ -20,18 +20,17 @@ let keys = {
     Enter:false
 };
 
-function moveRoadLines(){
-    let lines = document.querySelectorAll('.lines');
-    lines.forEach((line)=>{
-        // console.log(line.y);
-        if(line.y>500){
-            line.y -= 600;
-        }
-        line.y += player.speed;
-        line.style.top = line.y+"px";
-    })
+// function moveRoadLines(){
+//     let lines = document.querySelectorAll('.lines');
+//     lines.forEach((line)=>{
+//         if(line.y>500){
+//             line.y -= 600;
+//         }
+//         line.y += player.speed;
+//         line.style.top = line.y+"px";
+//     })
 
-}
+// }
 
 function playGame(){
     // console.log('playing');
@@ -40,7 +39,13 @@ function playGame(){
     let car_attrib = car.getBoundingClientRect();
     let lines = document.querySelectorAll('.lines');
     if(player.start){
-        moveRoadLines();
+
+        //loop for moving lines
+        for(let i=0;i<line_num;i++){
+            if(lines[i].y>500) lines[i].y -=600;
+            lines[i].y += 3;
+            lines[i].style.top = lines[i].y+"px";
+        }
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
             player.x += player.speed;
         }
@@ -65,13 +70,17 @@ function gameStarto(){
     welcome_screen.classList.add('hide');
     for(let i=0;i<line_num;i++){
         let lines = document.createElement('div')
-        lines.classList.add('lines');
+        lines.setAttribute("class","lines")
         lines.y = i*150;
         lines.style.top = i*150+"px";
         game_area.appendChild(lines);
     }
+    let enemy = document.createElement('div');
+    enemy.setAttribute("class","enemy-car");
+    enemy.style.margin="100px";
     let car = document.createElement('div');
     car.setAttribute("class","car");
+    game_area.appendChild(enemy);
     game_area.appendChild(car);
     window.requestAnimationFrame(playGame)
     player.x = car.offsetLeft;
