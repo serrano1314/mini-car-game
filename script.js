@@ -2,7 +2,6 @@ const welcome_screen=document.querySelector('.welcome-screen');
 const game_screen=document.querySelector('.game-screen');
 const score_screen=document.querySelector('.score-screen');
 const game_area=document.querySelector('.game-area');
-let i=0;
 
 document.addEventListener("keydown",pressOn);
 document.addEventListener("keyup",pressOff);
@@ -23,9 +22,11 @@ let keys = {
 
 function playGame(){
     let car = document.querySelector('.car');
+    let lines = document.querySelector('.lines');
     let road = game_area.getBoundingClientRect();
     let car_attrib = car.getBoundingClientRect();
     
+    // lines.style.left = road.width/2-10+"px";
     if(player.start){
         window.requestAnimationFrame(playGame);
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
@@ -42,6 +43,7 @@ function playGame(){
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
+        
     }
 }
 
@@ -49,14 +51,18 @@ function gameStarto(){
     player.start = true;
     game_screen.classList.remove('hide');
     welcome_screen.classList.add('hide');
+    for(let i=0;i<5;i++){
+        let lines = document.createElement('div')
+        lines.classList.add('lines');
+        lines.style.top = i*150+"px";
+        game_area.appendChild(lines);
+    }
     let car = document.createElement('div');
-    car.innerText = 'car';
     car.setAttribute("class","car");
     game_area.appendChild(car);
     window.requestAnimationFrame(playGame)
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
-    console.log(player)
 }
 
 function pressOn(e){
