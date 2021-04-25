@@ -13,7 +13,8 @@ let player = {
     speed:5
 }
 let game_level = {
-    roadSpeed:3
+    roadSpeed:3,
+    enemyCarCount:2
 }
 let keys = {
     ArrowUp:false,
@@ -34,6 +35,10 @@ let keys = {
 //     })
 
 // }
+ 
+function isCollide(){
+
+}
 
 function playGame(){
     // console.log('playing');
@@ -41,23 +46,30 @@ function playGame(){
     let road = game_area.getBoundingClientRect();
     let car_attrib = car.getBoundingClientRect();
     let lines = document.querySelectorAll('.lines');
-    let enemy = document.querySelector('.enemy-car');
+    let enemy = document.querySelectorAll('.enemy-car');
     if(player.start){
         for(let i=0;i<line_num;i++){//loop for moving lines
             if(lines[i].y>500) lines[i].y -=600;
             lines[i].y += game_level.roadSpeed;
             lines[i].style.top = lines[i].y+"px";
         }
-        if(enemy.y>500) {
-            enemy.y= -200;
-            enemy.x = Math.round(Math.random() * (70 - -100 + 1) ) + -100;
-            
-        }
-        enemy.style.left = enemy.x+"px";
-        enemy.y += game_level.roadSpeed-1;
-        enemy.style.top = enemy.y+"px";
-        if(enemy.y==car.y||enemy.x==car.x){
-            console.log('colision');
+        for(let i=0;i<game_level.enemyCarCount;i++){//loop for enemy cars
+            if(enemy[i].y>500) {
+                enemy[i].x = Math.round(Math.random() * (170 - 0) ) + 0;
+                // enemy[i].y = Math.round(Math.random() * (-200 - -350) ) + -350;
+                enemy[i].y = -300;
+            }
+            enemy[i].y += game_level.roadSpeed-1;
+            enemy[i].style.left = enemy[i].x+"px";
+            enemy[i].style.top = enemy[i].y+"px";
+            let enemy_attrib = enemy[i].getBoundingClientRect();
+            if(!((car_attrib.bottom < enemy_attrib.top)||
+                (car_attrib.top > enemy_attrib.bottom)||
+                (car_attrib.right < enemy_attrib.left)||
+                (car_attrib.left > enemy_attrib.right))){
+                    alert("GAME OVER");
+                    player.start=false;
+                }
         }
         //key controls and prevent out of bound
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
@@ -70,7 +82,7 @@ function playGame(){
             player.y -= player.speed;
         }
         if(keys.ArrowDown&&player.y<road.bottom) {
-            player.y += player.speed;
+            player.y += player.speed-2;
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
@@ -91,19 +103,30 @@ function gameStarto(){ //this is the function where prepare objects in the game
         lines.style.top = i*150+"px";
         game_area.appendChild(lines);
     }
-    let enemy = document.createElement('div');
-    enemy.setAttribute("class","enemy-car");
-    
-    enemy.style.margin="100px";
     let car = document.createElement('div');
     car.setAttribute("class","car");
-    game_area.appendChild(enemy);
+    
     game_area.appendChild(car);
-    window.requestAnimationFrame(playGame)
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
-    enemy.x = car.offsetLeft;
-    enemy.y = -200;
+    for(let i=0;i<game_level.enemyCarCount;i++){//creating div for enemy car
+        let arrCarX = [];
+        let arrCarY = [];
+        let enemy = document.createElement('div');
+        enemy.setAttribute("class","enemy-car");
+        enemy.x = Math.round(Math.random() * (170 - 0) ) + 0;
+        enemy.y = Math.round(Math.random() * (-200 - -350) ) + -350;
+        arrCarX.push(enemy.x);
+        if(arrCarX.includes(enemy.x))
+            enemy.x = Math.round(Math.random() * (170 - 0) ) + 0;
+        // if(arrCarY.includes(enemy.y))
+        //     enemy.y = Math.round(Math.random() * (-200 - -400) ) + -400;
+        enemy.y = ((i+1)*300)*-1;
+        enemy.style.top = enemy.y+"px";
+        game_area.appendChild(enemy);
+    }
+    
+    window.requestAnimationFrame(playGame)
 }
 
 function pressOn(e){

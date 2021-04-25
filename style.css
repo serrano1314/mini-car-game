@@ -12,6 +12,7 @@
     height: 60px;
 }
 .enemy-car{
+    margin: 0;
     background-color: blue;
 }
 .lines{
