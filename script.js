@@ -12,6 +12,9 @@ let player = {
     start:false,
     speed:5
 }
+let game_level = {
+    roadSpeed:3
+}
 let keys = {
     ArrowUp:false,
     ArrowDown:false,
@@ -38,14 +41,25 @@ function playGame(){
     let road = game_area.getBoundingClientRect();
     let car_attrib = car.getBoundingClientRect();
     let lines = document.querySelectorAll('.lines');
+    let enemy = document.querySelector('.enemy-car');
     if(player.start){
-
-        //loop for moving lines
-        for(let i=0;i<line_num;i++){
+        for(let i=0;i<line_num;i++){//loop for moving lines
             if(lines[i].y>500) lines[i].y -=600;
-            lines[i].y += 3;
+            lines[i].y += game_level.roadSpeed;
             lines[i].style.top = lines[i].y+"px";
         }
+        if(enemy.y>500) {
+            enemy.y= -200;
+            enemy.x = Math.round(Math.random() * (70 - -100 + 1) ) + -100;
+            
+        }
+        enemy.style.left = enemy.x+"px";
+        enemy.y += game_level.roadSpeed-1;
+        enemy.style.top = enemy.y+"px";
+        if(enemy.y==car.y||enemy.x==car.x){
+            console.log('colision');
+        }
+        //key controls and prevent out of bound
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
             player.x += player.speed;
         }
@@ -63,12 +77,14 @@ function playGame(){
         window.requestAnimationFrame(playGame);
     }
 }
-
-function gameStarto(){
+   
+function gameStarto(){ //this is the function where prepare objects in the game
     player.start = true;
     game_screen.classList.remove('hide');
     welcome_screen.classList.add('hide');
-    for(let i=0;i<line_num;i++){
+    let title = document.querySelector('title');
+    title.innerText = "Playing Game"
+    for(let i=0;i<line_num;i++){//creating div for road lines
         let lines = document.createElement('div')
         lines.setAttribute("class","lines")
         lines.y = i*150;
@@ -77,6 +93,7 @@ function gameStarto(){
     }
     let enemy = document.createElement('div');
     enemy.setAttribute("class","enemy-car");
+    
     enemy.style.margin="100px";
     let car = document.createElement('div');
     car.setAttribute("class","car");
@@ -85,6 +102,8 @@ function gameStarto(){
     window.requestAnimationFrame(playGame)
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
+    enemy.x = car.offsetLeft;
+    enemy.y = -200;
 }
 
 function pressOn(e){
