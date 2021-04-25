@@ -28,11 +28,11 @@ let keys = {
 };
 buttons[0].addEventListener("click",()=>{
     if(player.x>0)
-        player.x -= player.speed;
+        player.x -= player.speed+3;
 });
 buttons[1].addEventListener("click",()=>{
     if(player.x<170)
-        player.x += player.speed;
+        player.x += player.speed+3;
 });
 // function moveRoadLines(){
 //     let lines = document.querySelectorAll('.lines');
