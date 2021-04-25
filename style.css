@@ -3,30 +3,53 @@
 .hide{
     display: none;
 }
+/* body{
+    background-color: rgb(36, 36, 36);
+    color: #fff;
+} */
+.centered{
+    display: grid;
+    place-items: center;
+}
+.button{
+    height: 50px;
+    float: left;
+    width: 50%;
+}
+.gameover-dialog{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
 .score {
     width: 100px;
-    height: 30px;
+    height: 50px;
     position: relative;
     margin: auto;
 }
 .car, .enemy-car{
     position:absolute;
+    border-radius: 5px;
     bottom: 100px;
     margin:auto;
-    background-color: red;
+    background-color: rgb(202, 65, 65);
     width: 30px;
     height: 60px;
 }
+.car-turbo{
+    border-bottom: 5px solid;
+    border-color: yellow;
+}
 .enemy-car{
     margin: 0;
-    background-color: blue;
+    background-color: rgb(54, 54, 150);
 }
 .lines{
     position: absolute;
-    width: 10px;
+    width: 5px;
     height: 80px;
     margin-left: 95px;
-    background-color: #fff;
+    background-color: rgb(189, 189, 189);
 }
 .game-area{
     background-color: gray;
