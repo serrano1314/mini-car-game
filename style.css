@@ -12,6 +12,7 @@
     place-items: center;
 }
 .button{
+    user-select: none;
     height: 50px;
     float: left;
     width: 50%;
