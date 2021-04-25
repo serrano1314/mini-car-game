@@ -8,13 +8,14 @@ document.addEventListener("keyup",pressOff);
 welcome_screen.addEventListener("click",gameStarto);
 let line_num = 5;
 let player = { 
+    score:0,
     car:1,
     start:false,
     speed:5
 }
 let game_level = {
-    roadSpeed:3,
-    enemyCarCount:2
+    speed:3,
+    enemyCarCount:3
 }
 let keys = {
     ArrowUp:false,
@@ -50,7 +51,7 @@ function playGame(){
     if(player.start){
         for(let i=0;i<line_num;i++){//loop for moving lines
             if(lines[i].y>500) lines[i].y -=600;
-            lines[i].y += game_level.roadSpeed;
+            lines[i].y += player.speed;
             lines[i].style.top = lines[i].y+"px";
         }
         for(let i=0;i<game_level.enemyCarCount;i++){//loop for enemy cars
@@ -58,8 +59,9 @@ function playGame(){
                 enemy[i].x = Math.round(Math.random() * (170 - 0) ) + 0;
                 // enemy[i].y = Math.round(Math.random() * (-200 - -350) ) + -350;
                 enemy[i].y = -300;
+                score_screen.innerText = `SCORE: ${player.score++}`;
             }
-            enemy[i].y += game_level.roadSpeed-1;
+            enemy[i].y += player.speed+game_level.speed;
             enemy[i].style.left = enemy[i].x+"px";
             enemy[i].style.top = enemy[i].y+"px";
             let enemy_attrib = enemy[i].getBoundingClientRect();
@@ -67,9 +69,9 @@ function playGame(){
                 (car_attrib.top > enemy_attrib.bottom)||
                 (car_attrib.right < enemy_attrib.left)||
                 (car_attrib.left > enemy_attrib.right))){
-                    alert("GAME OVER");
-                    player.start=false;
-                }
+                alert(`GAME OVER!\nSCORE: ${player.score}`);
+                player.start=false;
+            }
         }
         //key controls and prevent out of bound
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
@@ -82,7 +84,7 @@ function playGame(){
             player.y -= player.speed;
         }
         if(keys.ArrowDown&&player.y<road.bottom) {
-            player.y += player.speed-2;
+            player.y += player.speed;
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
@@ -92,6 +94,7 @@ function playGame(){
    
 function gameStarto(){ //this is the function where prepare objects in the game
     player.start = true;
+    score_screen.innerText = `SCORE: ${player.score++}`;
     game_screen.classList.remove('hide');
     welcome_screen.classList.add('hide');
     let title = document.querySelector('title');

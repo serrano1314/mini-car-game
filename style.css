@@ -3,6 +3,12 @@
 .hide{
     display: none;
 }
+.score {
+    width: 100px;
+    height: 30px;
+    position: relative;
+    margin: auto;
+}
 .car, .enemy-car{
     position:absolute;
     bottom: 100px;
