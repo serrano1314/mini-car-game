@@ -77,11 +77,18 @@ function playGame(){
     }
     //key controls and prevent out of bound
     if(player.start){
+        player.x = player.x<0?0:player.x;
         if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
             player.x += player.speed;
+            car.classList.add('right-turn');
+        } else {
+            car.classList.remove('right-turn');
         }
         if(keys.ArrowLeft&&player.x>0) {
             player.x -= player.speed;
+            car.classList.add('left-turn');
+        } else {
+            car.classList.remove('left-turn');
         }
         if(keys.ArrowUp&&player.y>road.top-300) {
             player.y -= player.speed;
@@ -95,7 +102,6 @@ function playGame(){
         } else {
             car.classList.remove("car-turbo");
         }
-        
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
         window.requestAnimationFrame(playGame);

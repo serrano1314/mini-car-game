@@ -37,6 +37,12 @@
     width: 30px;
     height: 60px;
 }
+.right-turn{
+    transform: rotate(10deg);
+}
+.left-turn{
+    transform: rotate(-10deg);
+}
 .car-turbo{
     border-bottom: 5px solid;
     border-color: yellow;
