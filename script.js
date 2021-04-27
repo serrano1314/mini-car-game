@@ -27,13 +27,24 @@ let keys = {
     ArrowRight:false,
     Enter:false
 };
+let touch = {
+    z:false,
+    up:false,
+    down:false,
+    left:false,
+    right:false,
+};
 buttons[0].addEventListener("click",()=>{
-    if(player.x>0)
-        player.x -= player.speed+3;
+    touch.left = true;
+    touch.right = false;
+    // if(player.x>0)
+    //     player.x -= player.speed+3;
 });
 buttons[1].addEventListener("click",()=>{
-    if(player.x<170)
-        player.x += player.speed+3;
+    touch.left = false;
+    touch.right = true;
+    // if(player.x<170)
+    //     player.x += player.speed+3;
 });
 // function moveRoadLines(){
 //     let lines = document.querySelectorAll('.lines');
@@ -79,13 +90,13 @@ function playGame(){
     //key controls and prevent out of bound
     if(player.start){
         player.x = player.x<0?0:player.x;
-        if(keys.ArrowRight&&player.x<road.width-car_attrib.width){ 
+        if((keys.ArrowRight||touch.right)&&player.x<road.width-car_attrib.width){ 
             player.x += player.speed;
             car.classList.add('right-turn');
         } else {
             car.classList.remove('right-turn');
         }
-        if(keys.ArrowLeft&&player.x>0) {
+        if((keys.ArrowLeft||touch.left)&&player.x>0) {
             player.x -= player.speed;
             car.classList.add('left-turn');
         } else {
