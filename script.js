@@ -2,6 +2,7 @@ const welcome_screen=document.querySelector('.welcome-screen');
 const game_screen=document.querySelector('.game-screen');
 const score_screen=document.querySelector('.score-screen');
 const game_area=document.querySelector('.game-area');
+let car1=document.getElementById('svg-car1');
 welcome_screen.classList.add('centered');
 document.addEventListener("keydown",pressOn);
 document.addEventListener("keyup",pressOff);
@@ -131,7 +132,8 @@ function gameStarto(){ //this is the function where prepare objects in the game
         lines.style.top = i*150+"px";
         game_area.appendChild(lines);
     }
-    let car = document.createElement('div');
+    let car = document.createElement('img');
+    car.setAttribute("src","img/car1.svg");
     car.setAttribute("class","car");
     game_area.appendChild(car);
     car.style.left="82px";
@@ -156,7 +158,6 @@ function pressOn(e){
         e.preventDefault();
     if(e.key == 'Enter'&&!player.start)
         gameStarto();
-    console.log(e.key);
 }
 function pressOff(e){
     game_level.speed=7;
@@ -165,34 +166,4 @@ function pressOff(e){
     keys[e.key]=false;
     e.preventDefault();
     // console.log(`${keys[e.key]} ${e.key}`);
-}
-
-class clickAndHold {
-    constructor(target, callback){
-        this.target = target;
-        this.callback = callback;
-        this.isHold = false;
-        this.activeHoldTimeoutId = null;
-        ['touchstart','mousedown'].forEach(type =>{
-            this.target.addEventListener(type, this._onholdBegin.bind(this));
-        });
-        ['mouseup','mouseleave','mouseout','touchend','touchcancel'].forEach(type =>{
-            this.target.addEventListener(type, this._onholdStop.bind(this));
-        });
-    }
-    _onholdBegin(){
-        this.isHold = true;
-        this.activeHoldTimeoutId = setTimeout(() => {
-            if(this.isHold){
-                this.callback();
-            }
-        }, 1000);
-    }
-    _onholdStop(){
-        clearTimeout(this.activeHoldTimeoutId);
-        this.isHold = false;
-    }
-    static apply(target, callback){
-        new clickAndHold(target,callback);
-    }
 }

@@ -33,9 +33,11 @@
     border-radius: 5px;
     bottom: 100px;
     margin:0;
-    background-color: rgb(202, 65, 65);
     width: 30px;
     height: 60px;
+}
+#svg-car1{
+    fill: blue;
 }
 .right-turn{
     transform: rotate(10deg);
