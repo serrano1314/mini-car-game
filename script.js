@@ -37,14 +37,14 @@ let touch = {
 buttons[0].addEventListener("click",()=>{
     touch.left = true;
     touch.right = false;
-    // if(player.x>0)
-    //     player.x -= player.speed+3;
 });
 buttons[1].addEventListener("click",()=>{
     touch.left = false;
+    touch.right = false;
+});
+buttons[2].addEventListener("click",()=>{
+    touch.left = false;
     touch.right = true;
-    // if(player.x<170)
-    //     player.x += player.speed+3;
 });
 // function moveRoadLines(){
 //     let lines = document.querySelectorAll('.lines');
@@ -91,13 +91,19 @@ function playGame(){
     if(player.start){
         player.x = player.x<0?0:player.x;
         if((keys.ArrowRight||touch.right)&&player.x<road.width-car_attrib.width){ 
-            player.x += player.speed;
+            if(touch.right)
+                player.x += player.speed-1;
+            else
+                player.x += player.speed;
             car.classList.add('right-turn');
         } else {
             car.classList.remove('right-turn');
         }
         if((keys.ArrowLeft||touch.left)&&player.x>0) {
-            player.x -= player.speed;
+            if(touch.left)
+                player.x -= player.speed-1;
+            else
+                player.x -= player.speed;
             car.classList.add('left-turn');
         } else {
             car.classList.remove('left-turn');
