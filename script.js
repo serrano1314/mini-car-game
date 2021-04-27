@@ -91,19 +91,15 @@ function playGame(){
     if(player.start){
         player.x = player.x<0?0:player.x;
         if((keys.ArrowRight||touch.right)&&player.x<road.width-car_attrib.width){ 
-            if(touch.right)
-                player.x += player.speed-1;
-            else
-                player.x += player.speed;
+            if(touch.right) player.x += player.speed-1;
+            else player.x += player.speed;
             car.classList.add('right-turn');
         } else {
             car.classList.remove('right-turn');
         }
         if((keys.ArrowLeft||touch.left)&&player.x>0) {
-            if(touch.left)
-                player.x -= player.speed-1;
-            else
-                player.x -= player.speed;
+            if(touch.left) player.x -= player.speed-1;
+            else player.x -= player.speed;
             car.classList.add('left-turn');
         } else {
             car.classList.remove('left-turn');
@@ -119,6 +115,10 @@ function playGame(){
             car.classList.add("car-turbo");
         } else {
             car.classList.remove("car-turbo");
+        }
+        if(keys.ArrowRight||keys.ArrowLeft){
+            touch.left = false;
+            touch.right = false;
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
@@ -139,6 +139,8 @@ function gameStarto(){ //this is the function where prepare objects in the game
     game_area.innerHTML = "";
     player.start = true;
     player.score=0;
+    touch.left = false;
+    touch.right = false;
     score_screen.innerText = `SCORE: ${player.score}`;
     let title = document.querySelector('title');
     title.innerText = "Playing Game"
