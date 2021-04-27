@@ -15,7 +15,9 @@
     user-select: none;
     height: 50px;
     float: left;
-    width: 33%;
+    width: 32%;
+    margin: 5px 1px ;
+    background-color: cadetblue;
 }
 .gameover-dialog{
     position: absolute;
