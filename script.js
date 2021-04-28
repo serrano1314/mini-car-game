@@ -4,6 +4,14 @@ const score_screen=document.querySelector('.score-screen');
 const game_area=document.querySelector('.game-area');
 let car1=document.getElementById('svg-car1');
 welcome_screen.classList.add('centered');
+
+let svgcar = document.querySelectorAll('.carsvg');
+svgcar[0].classList.add('hide');
+svgcar[1].classList.add('hide');
+
+let carColor = document.getElementById('car2-color');
+carColor.style.fill="pink";
+
 document.addEventListener("keydown",pressOn);
 document.addEventListener("keyup",pressOff);
 welcome_screen.addEventListener("click",gameStarto);
@@ -151,8 +159,13 @@ function gameStarto(){ //this is the function where prepare objects in the game
         lines.style.top = i*150+"px";
         game_area.appendChild(lines);
     }
-    let car = document.createElement('img');
-    car.setAttribute("src","img/car1.svg");
+
+    
+    let car = document.createElement('div');
+    // svgcar[0].classList.remove('hide');
+    svgcar[1].classList.remove('hide');
+    
+    car.appendChild(svgcar[1]);
     car.setAttribute("class","car");
     game_area.appendChild(car);
     car.style.left="82px";
