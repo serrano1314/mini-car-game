@@ -115,7 +115,7 @@ function playGame(){
         if(keys.ArrowUp&&player.y>road.top-300) {
             player.y -= player.speed;
         }
-        if(keys.ArrowDown&&player.y<road.bottom) {
+        if(keys.ArrowDown&&player.y<road.height-car_attrib.height) {
             player.y += player.speed;
         }
         if(keys.z){
