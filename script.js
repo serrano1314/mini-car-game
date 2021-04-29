@@ -14,6 +14,7 @@ carColor.style.fill="pink";
 
 document.addEventListener("keydown",pressOn);
 document.addEventListener("keyup",pressOff);
+
 welcome_screen.addEventListener("click",gameStarto);
 const buttons = document.querySelectorAll('.button');
 let line_num = 4;
@@ -40,19 +41,19 @@ let touch = {
     up:false,
     down:false,
     left:false,
-    right:false,
+    right:false
 };
-buttons[0].addEventListener("click",()=>{
-    touch.left = true;
-    touch.right = false;
+buttons[0].addEventListener("touchstart",()=>{
+    touch.left = true
 });
-buttons[1].addEventListener("click",()=>{
-    touch.left = false;
-    touch.right = false;
+buttons[0].addEventListener("touchend",()=>{
+    touch.left = false
 });
-buttons[2].addEventListener("click",()=>{
-    touch.left = false;
-    touch.right = true;
+buttons[1].addEventListener("touchstart",()=>{
+    touch.right = true
+});
+buttons[1].addEventListener("touchend",()=>{
+    touch.right = false
 });
 // function moveRoadLines(){
 //     let lines = document.querySelectorAll('.lines');
@@ -99,15 +100,13 @@ function playGame(){
     if(player.start){
         player.x = player.x<0?0:player.x;
         if((keys.ArrowRight||touch.right)&&player.x<road.width-car_attrib.width){ 
-            if(touch.right) player.x += player.speed-1;
-            else player.x += player.speed;
+            player.x += player.speed;
             car.classList.add('right-turn');
         } else {
             car.classList.remove('right-turn');
         }
         if((keys.ArrowLeft||touch.left)&&player.x>0) {
-            if(touch.left) player.x -= player.speed-1;
-            else player.x -= player.speed;
+            player.x -= player.speed;
             car.classList.add('left-turn');
         } else {
             car.classList.remove('left-turn');
@@ -123,10 +122,6 @@ function playGame(){
             car.classList.add("car-turbo");
         } else {
             car.classList.remove("car-turbo");
-        }
-        if(keys.ArrowRight||keys.ArrowLeft){
-            touch.left = false;
-            touch.right = false;
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
@@ -198,4 +193,11 @@ function pressOff(e){
     keys[e.key]=false;
     e.preventDefault();
     // console.log(`${keys[e.key]} ${e.key}`);
+}
+
+function touchOn(e){
+    touch[e] = true;
+}
+function touchOff(e){
+    touch[e]=false;
 }
