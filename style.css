@@ -38,6 +38,10 @@
     width: 30px;
     height: 60px;
 }
+.enemy-car{
+    margin: 0;
+    background-image: url("img/car.svg");
+}
 #svg-car1{
     fill: blue;
 }
@@ -50,10 +54,6 @@
 .car-turbo{
     border-bottom: 5px solid;
     border-color: yellow;
-}
-.enemy-car{
-    margin: 0;
-    background-color: rgb(54, 54, 150);
 }
 .lines{
     position: absolute;
