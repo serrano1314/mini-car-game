@@ -7,7 +7,6 @@ welcome_screen.classList.add('centered');
 
 let svgcar = document.querySelectorAll('.carsvg');
 svgcar[0].classList.add('hide');
-svgcar[1].classList.add('hide');
 
 let carColor = document.getElementById('car2-color');
 carColor.style.fill="pink";
@@ -44,16 +43,39 @@ let touch = {
     right:false
 };
 buttons[0].addEventListener("touchstart",()=>{
-    touch.left = true
+    touch.up = true
 });
 buttons[0].addEventListener("touchend",()=>{
-    touch.left = false
+    touch.up = false
 });
+
 buttons[1].addEventListener("touchstart",()=>{
-    touch.right = true
+    touch.left = true
 });
 buttons[1].addEventListener("touchend",()=>{
+    touch.left = false
+});
+
+buttons[2].addEventListener("touchstart",()=>{
+    touch.right = true
+});
+buttons[2].addEventListener("touchend",()=>{
     touch.right = false
+});
+
+buttons[3].addEventListener("touchstart",()=>{
+    touch.down = true
+});
+buttons[3].addEventListener("touchend",()=>{
+    touch.down = false
+});
+
+buttons[4].addEventListener("touchstart",()=>{
+    touch.z = true
+});
+buttons[4].addEventListener("touchend",()=>{
+    game_level.speed=7;
+    touch.z = false
 });
 // function moveRoadLines(){
 //     let lines = document.querySelectorAll('.lines');
@@ -111,13 +133,13 @@ function playGame(){
         } else {
             car.classList.remove('left-turn');
         }
-        if(keys.ArrowUp&&player.y>road.top-300) {
+        if((keys.ArrowUp||touch.up)&&player.y>road.top-300) {
             player.y -= player.speed;
         }
-        if(keys.ArrowDown&&player.y<road.height-car_attrib.height) {
+        if((keys.ArrowDown||touch.down)&&player.y<road.height-car_attrib.height) {
             player.y += player.speed;
         }
-        if(keys.z){
+        if(keys.z||touch.z){
             game_level.speed +=1;
             car.classList.add("car-turbo");
         } else {
@@ -158,9 +180,9 @@ function gameStarto(){ //this is the function where prepare objects in the game
     
     let car = document.createElement('div');
     // svgcar[0].classList.remove('hide');
-    svgcar[1].classList.remove('hide');
+    svgcar[0].classList.remove('hide');
     
-    car.appendChild(svgcar[1]);
+    car.appendChild(svgcar[0]);
     car.setAttribute("class","car");
     game_area.appendChild(car);
     car.style.left="82px";
@@ -199,5 +221,5 @@ function touchOn(e){
     touch[e] = true;
 }
 function touchOff(e){
-    touch[e]=false;
+    game_level.speed=7;
 }

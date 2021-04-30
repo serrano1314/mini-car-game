@@ -11,12 +11,16 @@
     display: grid;
     place-items: center;
 }
+table {
+    text-align: center;
+    width: 100% ;
+}
+td{
+}
 .button{
-    user-select: none;
+    margin: 10px;
     height: 50px;
-    float: left;
-    width: 49%;
-    margin: 5px 1px ;
+    user-select: none;
     background-color: cadetblue;
 }
 .gameover-dialog{
