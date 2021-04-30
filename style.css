@@ -18,7 +18,7 @@ table {
 td{
 }
 .button{
-    margin: 1px 10px;
+    margin: 0;
     height: 50px;
     user-select: none;
     background-color: cadetblue;
@@ -70,7 +70,7 @@ td{
     border-radius: 10px;
     background-color: gray;
     width: 200px;
-    height: 440px;
+    height: 400px;
     overflow: hidden;
     position: relative;
     margin: auto;
