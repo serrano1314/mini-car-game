@@ -142,7 +142,7 @@ function playGame(){
             player.y += player.speed;
         }
         if(keys.z||touch.z){
-            game_level.speed +=1;
+            game_level.speed =10;
             fire.classList.remove('hide');
         } else {
             fire.classList.add('hide');
