@@ -4,7 +4,8 @@ const score_screen=document.querySelector('.score-screen');
 const game_area=document.querySelector('.game-area');
 let car1=document.getElementById('svg-car1');
 welcome_screen.classList.add('centered');
-
+welcome_screen.style['background-color']="cadetblue";
+welcome_screen.style.color="white";
 let svgcar = document.querySelectorAll('.carsvg');
 svgcar[0].classList.add('hide');
 
@@ -156,6 +157,7 @@ function playGame(){
 function gameOver(){
     player.start=false;
     score_screen.innerText = `GAME OVER\nSCORE: ${player.score}`;
+    welcome_screen.innerText ='TAP/CLICK HERE TO RESTART GAME';
     welcome_screen.setAttribute("class","hide centered");
 }
 
