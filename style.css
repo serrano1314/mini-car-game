@@ -75,3 +75,21 @@ td{
     position: relative;
     margin: auto;
 }
+.turbo-fire{
+    margin: 0 10%;
+    position: relative;
+    top: -4px;
+    width: 25px;
+    object-fit: fill;
+    animation: turboOn .3s forwards;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes turboOn {
+    from{
+        height: 15px;
+    }
+    to{
+        height: 30px;
+    }
+}

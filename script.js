@@ -92,6 +92,7 @@ buttons[4].addEventListener("touchend",()=>{
 function playGame(){
     // console.log('playing');
     let car = document.querySelector('.car');
+    let fire = document.querySelector('.turbo-fire');
     let road = game_area.getBoundingClientRect();
     let car_attrib = car.getBoundingClientRect();
     let lines = document.querySelectorAll('.lines');
@@ -141,9 +142,9 @@ function playGame(){
         }
         if(keys.z||touch.z){
             game_level.speed +=1;
-            car.classList.add("car-turbo");
+            fire.classList.remove('hide');
         } else {
-            car.classList.remove("car-turbo");
+            fire.classList.add('hide');
         }
         car.style.left = player.x+"px";
         car.style.top = player.y+"px";
@@ -179,11 +180,16 @@ function gameStarto(){ //this is the function where prepare objects in the game
 
     
     let car = document.createElement('div');
+    let fire = document.createElement('img');
+    fire.setAttribute('src','img/turbo-fire.png');
+    fire.classList.add('turbo-fire');
+    fire.classList.add('hide');
     // svgcar[0].classList.remove('hide');
     svgcar[0].classList.remove('hide');
     
     car.appendChild(svgcar[0]);
     car.setAttribute("class","car");
+    car.appendChild(fire);
     game_area.appendChild(car);
     car.style.left="82px";
     player.x = car.offsetLeft;
